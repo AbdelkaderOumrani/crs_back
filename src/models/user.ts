@@ -3,19 +3,23 @@ import mongoose from "mongoose";
 interface IUser {
   fullName: string;
   email: string;
-  password?: string;
+  password: string;
   isNewUser: boolean;
+  specialite: string;
+  finished: boolean;
 }
 
 interface IUserModel extends mongoose.Model<IUserDocument> {
   build(attr: IUser): IUserDocument;
 }
 
-interface IUserDocument extends mongoose.Document {
+export interface IUserDocument extends mongoose.Document {
   fullName: string;
   email: string;
-  password?: string;
+  password: string;
   isNewUser: boolean;
+  specialite: string;
+  finished: boolean;
 }
 
 const userSchema = new mongoose.Schema({
@@ -32,6 +36,12 @@ const userSchema = new mongoose.Schema({
   },
   isNewUser: {
     type: Boolean,
+  },
+  specialite: {
+    type: String,
+  },
+  finished: {
+    type: String,
   },
 });
 

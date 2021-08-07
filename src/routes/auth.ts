@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { User } from "../models/user";
+import { Course } from "../models/course";
 
 const router = express.Router();
 
@@ -25,6 +26,8 @@ router.post("/register", [], async (req: Request, res: Response) => {
       password,
       fullName,
       isNewUser: true,
+      finished: false,
+      specialite: "",
     }).save();
     console.log(`newUser`, newUser);
     res.json(newUser);

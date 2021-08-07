@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import { json } from "body-parser";
 import { AuthRouter } from "./routes/auth";
 import cors from "cors";
+import { CoursesRouter } from "./routes/courses";
+
+const PORT = process.env.PORT || 5000;
 
 mongoose.connect(
   DB_STRING,
@@ -26,7 +29,12 @@ const app = express();
 app.use(json());
 app.use(cors());
 app.use("/auth", AuthRouter);
+app.use("/courses", CoursesRouter);
 
-app.listen(5000, () => {
-  console.log("server running");
+app.get("/", (req, res) => {
+  res.json("Hello World");
+});
+
+app.listen(PORT, () => {
+  console.log("server running" + PORT);
 });
