@@ -1,0 +1,12 @@
+[x] add rating to course 1===>5
+[x] course difficulty
+[] add tags (term,course,obg/opt,hours),rating to course card
+[] 10 cours optional
+=======================================
+Version 2.0
+Skill(name)
+background(student,skill,level)
+student()
+course(title,skill,level,rating,hours);
+formation(title,courses[]);
+history(student,course,rating)

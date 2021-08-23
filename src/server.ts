@@ -5,6 +5,7 @@ import { json } from "body-parser";
 import { AuthRouter } from "./routes/auth";
 import cors from "cors";
 import { CoursesRouter } from "./routes/courses";
+import { SpecialiteRouter } from "./routes/specialite";
 
 const PORT = process.env.PORT || 5000;
 
@@ -28,6 +29,7 @@ const app = express();
 
 app.use(json());
 app.use(cors());
+app.use("/specialites", SpecialiteRouter);
 app.use("/auth", AuthRouter);
 app.use("/courses", CoursesRouter);
 

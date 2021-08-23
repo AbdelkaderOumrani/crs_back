@@ -1,9 +1,38 @@
 import express, { Request, Response } from "express";
 import { User } from "../models/user";
-import { Course } from "../models/course";
+import { Course, ICourseDocument } from "../models/course";
+import { Specialite } from "../models/specialite";
+import { CourseHistory } from "../models/courseHistory";
+import { generateNumber } from "../helpers";
 
 const router = express.Router();
 
+router.get("/prevCourses", [], async (req: Request, res: Response) => {
+  const email = req.query.email as string;
+  const user = await User.findOne({ email }).populate("prevCourses");
+  if (user) {
+    console.log(`user.prevCourses`, user.prevCourses);
+    res.json(user.prevCourses);
+  } else {
+    res.sendStatus(403);
+  }
+});
+router.post("/updateProfile", [], async (req: Request, res: Response) => {
+  const selectedCourses: any[] = req.body.selectedCourses;
+  const email = req.body.email;
+  await User.updateOne({ email }, { $set: { prevCourses: [] } });
+  selectedCourses.map(async (course) => {
+    let crs = await Course.findOne({ code: course.code });
+    await User.updateOne({ email }, { $push: { prevCourses: crs?._id } });
+  });
+  const user = await User.findOne({ email });
+  res.json(user);
+});
+router.get("/all", [], async (req: Request, res: Response) => {
+  const listeUser = await User.find().sort({ specialite: 1 });
+
+  res.json(listeUser);
+});
 router.post("/login", [], async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const exists = await User.findOne({ email, password });
@@ -15,7 +44,7 @@ router.post("/login", [], async (req: Request, res: Response) => {
 });
 router.post("/register", [], async (req: Request, res: Response) => {
   console.log(`req.body`, req.body);
-  const { fullName, email, password } = req.body;
+  const { fullName, email, password, specialite } = req.body;
   const exists = await User.findOne({ email });
   if (exists) {
     console.log(`exists`, exists);
@@ -25,9 +54,9 @@ router.post("/register", [], async (req: Request, res: Response) => {
       email,
       password,
       fullName,
-      isNewUser: true,
       finished: false,
-      specialite: "",
+      specialite: specialite,
+      prevCourses: [],
     }).save();
     console.log(`newUser`, newUser);
     res.json(newUser);

@@ -1,12 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
+import { ICourseDocument } from "./course";
+import { ISpecialiteDocument } from "./specialite";
 
 interface IUser {
   fullName: string;
   email: string;
   password: string;
-  isNewUser: boolean;
-  specialite: string;
+  specialite: string | ObjectId | ISpecialiteDocument;
   finished: boolean;
+  prevCourses: string[] | ObjectId[] | ICourseDocument[];
 }
 
 interface IUserModel extends mongoose.Model<IUserDocument> {
@@ -17,9 +19,9 @@ export interface IUserDocument extends mongoose.Document {
   fullName: string;
   email: string;
   password: string;
-  isNewUser: boolean;
-  specialite: string;
+  specialite: string | ObjectId | ISpecialiteDocument;
   finished: boolean;
+  prevCourses: string[] | ObjectId[] | ICourseDocument[];
 }
 
 const userSchema = new mongoose.Schema({
@@ -34,15 +36,14 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  isNewUser: {
-    type: Boolean,
-  },
   specialite: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Specialite",
   },
   finished: {
-    type: String,
+    type: Boolean,
   },
+  prevCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
 });
 
 userSchema.statics.build = (attr: IUser) => {

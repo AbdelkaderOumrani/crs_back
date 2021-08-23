@@ -6,7 +6,10 @@ interface ICourseHistory {
   student: string | ObjectId | IUserDocument;
   course: string | ObjectId | ICourseDocument;
   term: number;
+  hours: number;
   note: number;
+  rating: number;
+  difficulty: number;
 }
 
 interface ICourseHistoryModel extends mongoose.Model<ICourseHistoryDocument> {
@@ -17,7 +20,10 @@ interface ICourseHistoryDocument extends mongoose.Document {
   student: string | ObjectId | IUserDocument;
   course: string | ObjectId | ICourseDocument;
   term: number;
+  hours: number;
   note: number;
+  rating: number;
+  difficulty: number;
 }
 
 const courseHistorySchema = new mongoose.Schema({
@@ -32,18 +38,27 @@ const courseHistorySchema = new mongoose.Schema({
   term: {
     type: Number,
   },
+  hours: {
+    type: Number,
+  },
   note: {
+    type: Number,
+  },
+  rating: {
+    type: Number,
+  },
+  difficulty: {
     type: Number,
   },
 });
 
 courseHistorySchema.statics.build = (attr: ICourseHistory) => {
-  return new courseHistory(attr);
+  return new CourseHistory(attr);
 };
 
-const courseHistory = mongoose.model<
+const CourseHistory = mongoose.model<
   ICourseHistoryDocument,
   ICourseHistoryModel
->("courseHistory", courseHistorySchema);
+>("CourseHistory", courseHistorySchema);
 
-export { courseHistory };
+export { CourseHistory };

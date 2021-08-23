@@ -5,7 +5,10 @@ interface ICourse {
   title: string;
   term: number;
   optional: boolean;
-  specialities: string;
+  specialite: string;
+  hours: number;
+  rating: number;
+  difficulty: number;
 }
 
 interface ICourseModel extends mongoose.Model<ICourseDocument> {
@@ -17,7 +20,10 @@ export interface ICourseDocument extends mongoose.Document {
   title: string;
   term: number;
   optional: boolean;
-  specialities: string;
+  specialite: string;
+  hours: number;
+  rating: number;
+  difficulty: number;
 }
 
 const courseSchema = new mongoose.Schema({
@@ -30,12 +36,17 @@ const courseSchema = new mongoose.Schema({
   term: {
     type: Number,
   },
+  hours: {
+    type: Number,
+  },
   optional: {
     type: Boolean,
   },
-  specialities: {
+  specialite: {
     type: String,
   },
+  rating: { type: Number },
+  difficulty: { type: Number },
 });
 
 courseSchema.statics.build = (attr: ICourse) => {

@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-interface ISpecialite {
+export interface ISpecialite {
+  parent?: string;
+  code: string;
   name: string;
 }
 
@@ -9,11 +11,20 @@ interface ISpecialiteModel extends mongoose.Model<ISpecialiteDocument> {
 }
 
 export interface ISpecialiteDocument extends mongoose.Document {
+  parent?: string;
+  code: string;
   name: string;
 }
 
 const specialiteSchema = new mongoose.Schema({
+  code: {
+    type: String,
+    unique: true,
+  },
   name: {
+    type: String,
+  },
+  parent: {
     type: String,
   },
 });
