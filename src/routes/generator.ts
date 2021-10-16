@@ -35,7 +35,7 @@ router.get('/generateCourses', [], async (req: Request, res: Response) => {
     ];
     levelsArray.map((level, levelId) => {
       console.log(`here 2`);
-      const arr = generateArray(generateNumber(5, 8));
+      const arr = generateArray(generateNumber(2, 4));
       console.log(`arr`, arr);
       arr.map((_, idx) => {
         console.log(`here 3`);
@@ -46,8 +46,8 @@ router.get('/generateCourses', [], async (req: Request, res: Response) => {
             code: skill.name + level.code + rd,
             title: skill.name + ' ' + level.label + ' Course N°' + rd,
             skill: skill._id,
-            hours: generateNumber(100, 150),
-            rating: generateNumber(2, 5),
+            hours: generateNumber(60, 120),
+            rating: generateNumber(3, 5),
             level: levelId + 1,
           }).save();
           console.log(`result`, result);
@@ -68,7 +68,7 @@ router.get('/generateFormations', [], async (req: Request, res: Response) => {
     const resultFormation = await Formation.build({
       title: formation.title,
       courses: [],
-      image: '',
+      image: formation.image,
     }).save();
     await formation.courses.map(
       async ({ skill, prerequisite, aquiredLevel }) => {

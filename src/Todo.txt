@@ -4,9 +4,88 @@
 [] 10 cours optional
 =======================================
 Version 2.0
-Skill(name)
-background(student,skill,level)
-student()
-course(title,skill,level,rating,hours);
-formation(title,courses[]);
-history(student,course,rating)
+[x]Skill(name)
+[x]background(student,skill,level)
+[x]student()
+[x]course(title,skill,level,rating,hours);
+[x]formation(title,courses[]);
+[x]history(student,course,rating)
+
+=========================================
+Course Recommendation Process:
+1-Njbdo les course ta3 formation;
+2- njbdou backgrounds
+3- cha ghadi trecommendi = makantch fel background aslan.
+                           - kayna w level < lavel ta3 formation.
+=========================================
+Formation Recommendation Process:
+1- njibou l backgrounds
+2- njibou les formations
+
+IDFormation,(en cas match > 0%)
+skills m3a aquiredLevel(courses.skill,courses.aquiredLevel);
+
+================================
+ARGUMENTS:
+- tza3e9 biya t9ra react 9bel html
+- 
+=================================
+
+
+nous avons changé la logique de notre système.
+Voici notre nouvelle approche.
+tout d'abord, la page de profil. l'étudiant peut voir et remplir ses backgrounds,
+changer les paramètres (autres paramètres à ajouter plus tard).
+ensuite, la page des formations. l'étudiant peut voir les recommandations sur les formations qui sont similaires à ses backgrounds,
+puis choisir la formation à ajouter à son profil.
+dans la page des cours, nous montrons à l'étudiant, la séquence de cours pour chaque formation qu'il a ajouté dans son profil.
+
+D'autres fonctionnalités seront ajoutées plus tard.
+
+
+processus de recommandation des formations :
+- nous calculons la similarité entre les compétences (html, css,..) fournies par la formation et les compétences que l'étudiant a dans ses backgrounds.
+- les formations qui ont un pourcentage de similarité > 0 sont recommandées.
+- l'étudiant ajoute la formation à son profil.
+- dans la page des cours, les formations de l'étudiant sont affichées avec la séquence de cours recommandée afin de compléter ces formations.
+
+processus de recommandation de cours :
+- chaque formation a une séquence de compétences avec des niveaux. 
+- les compétences sont liées entre elles par des prérequis (java est un prérequis pour android).
+- chaque niveau comporte différents cours à choisir pour le compléter. nous recommandons le meilleur cours en fonction de son évaluation ou du temps nécessaire pour le terminer.
+
+
+
+l'étudiant peut également rechercher librement des formations et des cours sans notre recommandation.
+
+
+============================
+fonctionnalité a ajouter
+ajouter formation au profil
+ajouter cours au profil
+noter le cours
+recommender par rapport au volume horaire
+=============================
+Cha khasni nzid:
+
+=Home:
+Les cours w les formations ga3 lmla7.
+
+ =Profil: 
+ - khas les formations.
+ - settings mazal makach fel backend    
+ - upload image
+ - statistcs
+
+
+ =Formations,Course:(Tout):
+ -Recherche libre
+
+ =Formations,Course:(Recommendations)
+ - recherche formation, cours
+ - ajouter une formation au profil
+ - ajouter un cours au profil
+
+
+- page detais formation (skills, level,cours)
+- page details cours (hours,ratings, skill,etudiants)

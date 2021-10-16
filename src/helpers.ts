@@ -30,3 +30,12 @@ export const detectTerm = (length: number) => {
   }
   return 1;
 };
+
+// a function that generates array of n items
+export const generateArray = (n: number) => {
+  let array = [];
+  for (let i = 0; i < n; i++) {
+    array.push(i);
+  }
+  return array;
+};
